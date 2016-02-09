@@ -10,28 +10,28 @@ resource "wakamevdc_instance" "monitoring_server" {
   memory_size = 512
   image_id = "${var.monitoring_image}"
   hypervisor = "kvm"
-  ssh_key_id = "${var.ssh_key_id}"
+  ssh_key_id = "${var.key_name}"
 
   vif {
-    network_id = "${var.private_network}"
+    network_id = "${var.global_network}"
     security_groups = [
       "${var.shared_security_group}",
       "${wakamevdc_security_group.monitoring_security_group.id}"
     ]
   }
   vif {
-    network_id = "${var.public_network}"
+    network_id = "${element(split(", ", var.subnet_ids), 0)}"
     security_groups = [
       "${var.shared_security_group}",
       "${wakamevdc_security_group.monitoring_security_group.id}"
     ]
   }
-}
-
-output "cluster_addresses" {
-  value = "${wakamevdc_instance.monitoring_server.vif.0.ip_address}"
 }
 
 output "frontend_addresses" {
+  value = "${wakamevdc_instance.monitoring_server.vif.0.ip_address}"
+}
+
+output "cluster_addresses" {
   value = "${wakamevdc_instance.monitoring_server.vif.1.ip_address}"
 }
