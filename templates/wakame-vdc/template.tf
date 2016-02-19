@@ -28,7 +28,7 @@ resource "wakamevdc_instance" "monitoring_server" {
   }
 }
 
-output "frontend_addresses" {
+output "consul_addresses" {
   value = "${wakamevdc_instance.monitoring_server.vif.0.ip_address}"
 }
 
