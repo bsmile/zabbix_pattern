@@ -1,7 +1,7 @@
 
 include_attribute 'zabbix'
 
-default['zabbix']['server']['version'] = '2.2.10'
+default['zabbix']['server']['version'] = '2.2.11'
 default['zabbix']['server']['java_pollers'] = '3'
 default['zabbix']['server']['java_gateway_enable'] = true
 default['zabbix']['server']['java_gateway_port'] = 10052
